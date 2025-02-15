@@ -1,5 +1,3 @@
-"use client";
-
 import { useQuery, useInfiniteQuery } from "@tanstack/react-query";
 import { getRandomVideos } from "@/services/videoService";
 import { Video } from "@/types";
