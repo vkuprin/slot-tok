@@ -52,10 +52,6 @@ export class SlotMachineLogic {
 
     return SYMBOLS[0];
   }
-
-  public calculatePayout(result: SlotResult, betAmount: number): number {
-    return result.isWin ? betAmount * (result.multiplier || 1) : 0;
-  }
 }
 
 export const slotMachine = SlotMachineLogic.getInstance();

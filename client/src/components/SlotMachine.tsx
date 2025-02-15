@@ -1,4 +1,3 @@
-// src/components/SlotMachine/SlotMachine.tsx
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { slotMachine } from "@/utils/slot/SlotLogic";

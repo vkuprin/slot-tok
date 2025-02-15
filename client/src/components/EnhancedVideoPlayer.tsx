@@ -1,4 +1,3 @@
-// src/components/VideoPlayer/EnhancedVideoPlayer.tsx
 import { useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useVideoSync } from "@/hooks/useVideoSync";

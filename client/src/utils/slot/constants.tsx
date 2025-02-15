@@ -30,7 +30,3 @@ export const SYMBOLS: SlotSymbol[] = [
     probability: 0.1,
   },
 ];
-
-export const SPIN_DURATION = 2000; // ms
-export const MIN_BET = 10;
-export const MAX_BET = 100;
