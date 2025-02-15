@@ -8,9 +8,7 @@ interface VideoControlsProps {
   video: Video;
 }
 
-export function VideoControls({
-  progress,
-}: VideoControlsProps) {
+export function VideoControls({ progress }: VideoControlsProps) {
   const [isLiked, setIsLiked] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
 

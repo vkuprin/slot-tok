@@ -30,8 +30,8 @@ export default function MainContent() {
       const isWin = Math.random() > 0.7;
       if (isWin) {
         const winAmount = state.currentPowerUp
-            ? 20 * state.currentPowerUp.value
-            : 20;
+          ? 20 * state.currentPowerUp.value
+          : 20;
         dispatch({ type: "ADD_CREDITS", payload: winAmount });
         dispatch({ type: "INCREMENT_WINS" });
       }
@@ -49,30 +49,30 @@ export default function MainContent() {
   };
 
   return (
-      <div className="min-h-screen bg-gray-900">
-        <StatsBar />
-        <main
-            className={`max-w-7xl mx-auto p-4 ${
-                isMobile ? "space-y-4" : "flex gap-6"
-            }`}
-        >
-          <div className={isMobile ? "w-full" : "w-2/3"}>
-            <PowerUpBar />
-            <SlotMachine
-                onSpin={handleSpin}
-                isSpinning={isSpinning}
-                disabled={state.credits < 10}
-            />
-          </div>
-          <div className={isMobile ? "w-full" : "w-1/3"}>
-            <EnhancedVideoPlayer
-                autoPlay
-                muted
-                onVideoEnd={() => handleSpin()}
-                onError={handleVideoError}
-            />
-          </div>
-        </main>
-      </div>
+    <div className="min-h-screen bg-gray-900">
+      <StatsBar />
+      <main
+        className={`max-w-7xl mx-auto p-4 ${
+          isMobile ? "space-y-4" : "flex gap-6"
+        }`}
+      >
+        <div className={isMobile ? "w-full" : "w-2/3"}>
+          <PowerUpBar />
+          <SlotMachine
+            onSpin={handleSpin}
+            isSpinning={isSpinning}
+            disabled={state.credits < 10}
+          />
+        </div>
+        <div className={isMobile ? "w-full" : "w-1/3"}>
+          <EnhancedVideoPlayer
+            autoPlay
+            muted
+            onVideoEnd={() => handleSpin()}
+            onError={handleVideoError}
+          />
+        </div>
+      </main>
+    </div>
   );
 }

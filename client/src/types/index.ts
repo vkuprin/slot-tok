@@ -7,6 +7,8 @@ export interface Video {
   likes: number;
   saved: boolean;
   liked: boolean;
+  description: string;
+  title: string;
 }
 
 export interface User {
@@ -52,4 +54,30 @@ export interface PowerUp {
   value: number;
   icon: string;
   duration?: number;
+}
+
+export type GameMode = "normal" | "turbo" | "practice";
+
+export interface GameStatistics {
+  totalWinAmount: number;
+  averageWinAmount: number;
+  winRate: number;
+}
+
+export interface GameState {
+  credits: number;
+  currentPowerUp: PowerUp | null;
+  wins: number;
+  spins: number;
+  currentBet: number;
+  isAutoPlay: boolean;
+  gameMode: GameMode;
+  winHistory: Array<{
+    amount: number;
+    timestamp: number;
+  }>;
+  highestWin: number;
+  lastWin: number;
+  powerUpsAvailable: PowerUp[];
+  statistics: GameStatistics;
 }
