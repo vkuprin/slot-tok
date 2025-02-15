@@ -30,11 +30,10 @@ export class SlotMachineLogic {
         winAmount: baseWinAmount * multiplier,
         multiplier,
       };
-    } catch (error) {
+    } catch {
       throw new GameError(
         "Failed to generate spin result",
         GameErrorCode.SPIN_ERROR,
-        error,
       );
     }
   }

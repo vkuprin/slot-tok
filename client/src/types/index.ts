@@ -1,20 +1,8 @@
-// src/types/index.ts
 export interface Video {
   id: string;
   url: string;
   thumbnail: string;
   duration: number;
-  likes: number;
-  saved: boolean;
-  liked: boolean;
-  description: string;
-  title: string;
-}
-
-export interface User {
-  id: string;
-  credits: number;
-  powerUps: PowerUp[];
 }
 
 export interface PowerUp {

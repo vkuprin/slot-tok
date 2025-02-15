@@ -9,11 +9,7 @@ interface VideoControlsProps {
   isPlaying: boolean;
 }
 
-export function VideoControls({
-  progress,
-  video,
-  isPlaying,
-}: VideoControlsProps) {
+export function VideoControls({ progress, isPlaying }: VideoControlsProps) {
   const [isLiked, setIsLiked] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
   const [showControls, setShowControls] = useState(false);
@@ -50,12 +46,6 @@ export function VideoControls({
             exit={{ opacity: 0 }}
             className="absolute inset-0 bg-gradient-to-b from-transparent to-black/50"
           >
-            {/* Video info */}
-            <div className="absolute bottom-8 left-4 text-white">
-              <h3 className="text-lg font-bold">{video.title}</h3>
-              <p className="text-sm opacity-75">{video.description}</p>
-            </div>
-
             {/* Control buttons */}
             <div className="absolute bottom-8 right-4 flex flex-col gap-4">
               <motion.button

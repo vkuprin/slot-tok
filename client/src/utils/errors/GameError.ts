@@ -2,7 +2,6 @@ export class GameError extends Error {
   constructor(
     message: string,
     public code: GameErrorCode,
-    public details?: unknown,
   ) {
     super(message);
     this.name = "GameError";

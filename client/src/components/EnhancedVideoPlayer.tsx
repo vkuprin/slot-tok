@@ -51,7 +51,7 @@ export function EnhancedVideoPlayer({
         clearInterval(progressInterval.current);
       }
     };
-  }, [autoPlay, currentVideo, handleProgress, inView, onError]);
+  }, [autoPlay, currentVideo, handleProgress, inView, onError, videoRef]);
 
   const handleVideoEnd = async () => {
     try {

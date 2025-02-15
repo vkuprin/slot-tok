@@ -79,11 +79,10 @@ export function useVideoSync() {
           GameErrorCode.VIDEO_LOAD_ERROR,
         );
       }
-    } catch (error) {
+    } catch {
       throw new GameError(
         "Failed to advance to next video",
         GameErrorCode.VIDEO_LOAD_ERROR,
-        error,
       );
     }
   };
