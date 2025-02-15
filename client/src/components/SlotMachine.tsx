@@ -1,21 +1,28 @@
+// src/components/SlotMachine.tsx
 import { useState } from "react";
 import { motion } from "framer-motion";
 
+// Update the Props interface to include disabled
 interface Props {
-  onSpin: () => void;
+  onSpin: () => void | Promise<void>; // Allow for async function
   isSpinning: boolean;
+  disabled?: boolean; // Add disabled prop
 }
 
 const SYMBOLS = ["🍎", "🍋", "🍒", "7️⃣", "💎"];
 const REEL_COUNT = 3;
 
-export default function SlotMachine({ onSpin, isSpinning }: Props) {
+export default function SlotMachine({
+  onSpin,
+  isSpinning,
+  disabled = false,
+}: Props) {
   const [reels, setReels] = useState<string[][]>(
     Array(REEL_COUNT).fill(SYMBOLS),
   );
 
   const handleSpin = () => {
-    if (isSpinning) return;
+    if (isSpinning || disabled) return;
     onSpin();
     // Animate reels
     const newReels = reels.map(() =>
@@ -43,12 +50,15 @@ export default function SlotMachine({ onSpin, isSpinning }: Props) {
       </div>
       <button
         onClick={handleSpin}
-        disabled={isSpinning}
-        className="w-full py-3 px-6 bg-red-500 text-white rounded-lg
-                 disabled:bg-gray-400 disabled:cursor-not-allowed
-                 hover:bg-red-600 transition-colors"
+        disabled={isSpinning || disabled}
+        className={`w-full py-3 px-6 rounded-lg transition-colors
+                   ${
+                     isSpinning || disabled
+                       ? "bg-gray-400 cursor-not-allowed"
+                       : "bg-red-500 hover:bg-red-600"
+                   } text-white`}
       >
-        {isSpinning ? "Spinning..." : "SPIN"}
+        {isSpinning ? "Spinning..." : disabled ? "Not enough credits" : "SPIN"}
       </button>
     </div>
   );
