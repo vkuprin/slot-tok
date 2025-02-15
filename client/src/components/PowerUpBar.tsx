@@ -49,7 +49,7 @@ export default function PowerUpBar() {
           key={powerUp.id}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          className={`p-2 rounded-lg ${
+          className={`p-2 text-white rounded-lg ${
             state.currentPowerUp?.id === powerUp.id
               ? "bg-purple-600"
               : "bg-gray-700"

@@ -34,9 +34,9 @@ export default function SlotMachine({
     setWinAmount(0);
     playSpinSound();
 
-    // Generate spinning animation
+    // Generate spinning animation with more symbols
     const spinningReels = reels.map(() =>
-      Array(20)
+      Array(30)
         .fill(null)
         .map(() => SYMBOLS[Math.floor(Math.random() * SYMBOLS.length)].symbol),
     );
@@ -44,13 +44,16 @@ export default function SlotMachine({
 
     try {
       await onSpin();
+      if (!state.currentPowerUp) return;
 
       const result = slotMachine.generateSpinResult(state.currentPowerUp);
 
-      // Update reels with result
-      const finalReels = result.combination.map((id) => [
-        SYMBOLS.find((s) => s.id === id)?.symbol || SYMBOLS[0].symbol,
-      ]);
+      // Update reels with result, maintaining more visible symbols
+      const finalReels = result.combination.map((id) => {
+        const mainSymbol =
+          SYMBOLS.find((s) => s.id === id)?.symbol || SYMBOLS[0].symbol;
+        return Array(5).fill(mainSymbol); // Show 5 symbols per reel
+      });
       setReels(finalReels);
 
       if (result.isWin) {
@@ -66,7 +69,10 @@ export default function SlotMachine({
   return (
     <div className="w-full max-w-lg mx-auto bg-gray-800 rounded-lg p-6">
       <div className="relative">
-        {/* Win line */}
+        {/* Static win line */}
+        <div className="absolute left-0 right-0 top-1/2 h-24 -translate-y-1/2 border-y-2 border-yellow-400/50 pointer-events-none" />
+
+        {/* Win highlight overlay */}
         <WinLine active={winLine} />
 
         {/* Reels container */}
@@ -127,19 +133,18 @@ export default function SlotMachine({
   );
 }
 
-// src/components/SlotMachine/ReelStrip.tsx
 interface ReelStripProps {
   symbols: string[];
   isSpinning: boolean;
   delay: number;
 }
 
-export function ReelStrip({ symbols, isSpinning, delay }: ReelStripProps) {
+function ReelStrip({ symbols, isSpinning, delay }: ReelStripProps) {
   return (
-    <div className="relative h-24 overflow-hidden bg-gray-800 rounded">
+    <div className="relative h-96 overflow-hidden bg-gray-800 rounded">
       <motion.div
         animate={{
-          y: isSpinning ? [0, -1000, 0] : 0,
+          y: isSpinning ? [0, -2000, 0] : 0,
         }}
         transition={{
           duration: isSpinning ? 2 : 0.5,
@@ -161,36 +166,41 @@ export function ReelStrip({ symbols, isSpinning, delay }: ReelStripProps) {
   );
 }
 
-// src/components/SlotMachine/WinLine.tsx
 interface WinLineProps {
   active: boolean;
 }
 
-export function WinLine({ active }: WinLineProps) {
+function WinLine({ active }: WinLineProps) {
   return (
     <AnimatePresence>
       {active && (
         <motion.div
           initial={{ opacity: 0 }}
           animate={{
-            opacity: [0, 1, 0.5, 1],
-            scale: [1, 1.1, 1],
+            opacity: 0.3,
+            backgroundColor: [
+              "rgba(234, 179, 8, 0.2)",
+              "rgba(234, 179, 8, 0.4)",
+            ],
           }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 1, repeat: Infinity }}
-          className="absolute inset-0 bg-yellow-500/30 z-10 rounded"
+          transition={{
+            duration: 1.5,
+            repeat: Infinity,
+            repeatType: "reverse",
+          }}
+          className="absolute inset-0 z-10 rounded"
         />
       )}
     </AnimatePresence>
   );
 }
 
-// src/components/SlotMachine/WinDisplay.tsx
 interface WinDisplayProps {
   amount: number;
 }
 
-export function WinDisplay({ amount }: WinDisplayProps) {
+function WinDisplay({ amount }: WinDisplayProps) {
   return (
     <AnimatePresence>
       {amount > 0 && (
@@ -199,7 +209,6 @@ export function WinDisplay({ amount }: WinDisplayProps) {
           animate={{
             scale: 1,
             y: 0,
-            rotate: [0, -5, 5, -5, 0],
           }}
           exit={{ scale: 0, y: 50 }}
           className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2
