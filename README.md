@@ -8,7 +8,6 @@ A web-based slot machine game integrated with short-form video content. This pro
 - 📱 Mobile-first, responsive design
 - 🎥 Vertical video feed with smooth scrolling
 - 💫 Power-up system with multipliers
-- 📊 Real-time statistics tracking
 - 🎮 Game state management with win history
 
 ## Tech Stack
@@ -66,7 +65,6 @@ pnpm install
 
 ```env
 VITE_PUBLIC_PEXELS_API_KEY=your_pexels_api_key
-VITE_API_URL=http://localhost:3001
 ```
 
 4. Start the development server:
